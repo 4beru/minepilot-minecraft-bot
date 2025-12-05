@@ -9,14 +9,14 @@ import org.kvxd.kiwi.pathing.move.MovementStrategy
 
 object WalkMovement : MovementStrategy {
 
-    private val CARDINALS = Direction.Type.HORIZONTAL.toList()
+    const val COST = 1.0
 
     override fun getNeighbors(current: Node, target: BlockPos, output: MutableList<Node>) {
-        for (dir in CARDINALS) {
+        Direction.Type.HORIZONTAL.forEach { dir ->
             val dest = current.pos.offset(dir)
 
             if (CollisionCache.isWalkable(dest)) {
-                output.add(createNode(dest, current, target, MovementType.WALK, 1.0))
+                output += createNode(dest, current, target, MovementType.WALK, COST)
             }
         }
     }
